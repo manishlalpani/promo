@@ -70,7 +70,8 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   useEffect(() => {
     if (showCountdown && !adInitialized.current) {
       adInitialized.current = true;
-      
+      setAdLoaded(false);
+
       // Create configuration script
       const configScript = document.createElement('script');
       configScript.type = 'text/javascript';
@@ -96,8 +97,8 @@ export default function CouponCard({ coupon }: CouponCardProps) {
       };
       
       adScript.onerror = () => {
-        console.log('Adsterra ad failed to load, using iframe fallback');
-        setAdLoaded(true); // Still set to true to show the container
+        console.log('Ad failed to load');
+        setAdLoaded(true);
       };
       
       // Add scripts to document head
@@ -231,6 +232,9 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                 onClick={() => {
                   setShowCountdown(false);
                   setCountdown(10);
+                  if (countdownRef.current) {
+                    clearTimeout(countdownRef.current);
+                  }
                 }}
                 className="mt-4 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md text-sm"
               >
@@ -252,8 +256,17 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                   key={i}
                   className="absolute w-2 h-2 rounded-full"
                   style={{ backgroundColor: colors[i % colors.length] }}
-                  initial={{ y: -50, x: Math.random() * window.innerWidth, rotate: 0, opacity: 1 }}
-                  animate={{ y: window.innerHeight + 50, rotate: Math.random() * 720, opacity: 0 }}
+                  initial={{ 
+                    y: -50, 
+                    x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0, 
+                    rotate: 0, 
+                    opacity: 1 
+                  }}
+                  animate={{ 
+                    y: typeof window !== 'undefined' ? window.innerHeight + 50 : 1000, 
+                    rotate: Math.random() * 720, 
+                    opacity: 0 
+                  }}
                   transition={{
                     duration: 2 + Math.random(),
                     repeat: Infinity,
