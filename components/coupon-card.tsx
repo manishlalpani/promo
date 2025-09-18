@@ -27,9 +27,9 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   const [showModal, setShowModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [buttonLabel, setButtonLabel] = useState('Continue to Site');
-  const [adError, setAdError] = useState(false);
+  const [adLoaded, setAdLoaded] = useState(false);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const adInitialized = useRef(false);
 
   // Responsive button label
   useEffect(() => {
@@ -66,10 +66,67 @@ export default function CouponCard({ coupon }: CouponCardProps) {
     };
   }, [countdown, showCountdown]);
 
-  // Reset ad error when countdown is shown
+  // Load Adsterra ad when countdown is shown
   useEffect(() => {
-    if (showCountdown) {
-      setAdError(false);
+    if (showCountdown && !adInitialized.current) {
+      adInitialized.current = true;
+      
+      // Create configuration script
+      const configScript = document.createElement('script');
+      configScript.type = 'text/javascript';
+      configScript.innerHTML = `
+        atOptions = {
+          'key' : 'cb29393bf98693815c2e6ac9b2e6d443',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      `;
+      
+      // Create ad script
+      const adScript = document.createElement('script');
+      adScript.type = 'text/javascript';
+      adScript.src = 'https://www.highperformanceformat.com/cb29393bf98693815c2e6ac9b2e6d443/invoke.js';
+      adScript.async = true;
+      
+      adScript.onload = () => {
+        console.log('Adsterra ad loaded successfully');
+        setAdLoaded(true);
+      };
+      
+      adScript.onerror = () => {
+        console.log('Adsterra ad failed to load, using iframe fallback');
+        setAdLoaded(true); // Still set to true to show the container
+      };
+      
+      // Add scripts to document head
+      document.head.appendChild(configScript);
+      document.head.appendChild(adScript);
+      
+      // Set timeout to check if ad loaded
+      const timeoutId = setTimeout(() => {
+        setAdLoaded(true);
+      }, 2000);
+      
+      return () => {
+        clearTimeout(timeoutId);
+        // Clean up scripts
+        if (document.head.contains(configScript)) {
+          document.head.removeChild(configScript);
+        }
+        if (document.head.contains(adScript)) {
+          document.head.removeChild(adScript);
+        }
+      };
+    }
+  }, [showCountdown]);
+
+  // Reset states when countdown is closed
+  useEffect(() => {
+    if (!showCountdown) {
+      adInitialized.current = false;
+      setAdLoaded(false);
     }
   }, [showCountdown]);
 
@@ -100,11 +157,6 @@ export default function CouponCard({ coupon }: CouponCardProps) {
     } catch (err) {
       console.error('Failed to copy coupon code:', err);
     }
-  };
-
-  const handleIframeError = () => {
-    console.log('Ad iframe failed to load');
-    setAdError(true);
   };
 
   const colors = ['#FBBF24', '#10B981', '#3B82F6', '#EF4444', '#8B5CF6', '#F472B6'];
@@ -161,54 +213,15 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                 Your coupon is almost ready. Check out this deal!
               </p>
 
-              {/* Ad Container - Iframe implementation with error handling */}
-              <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100 relative">
-                {!adError ? (
-                  <iframe 
-                    ref={iframeRef}
-                    src={`https://www.highperformanceformat.com/e78d2e8d5a0f63c7c741365bc11c2bb2/invoke.html?r=${Math.random()}`}
-                    width="300" 
-                    height="250" 
-                    frameBorder="0"
-                    scrolling="no"
-                    className="rounded-lg"
-                    onError={handleIframeError}
-                    onLoad={(e) => {
-                      // Check if iframe content is blocked
-                      try {
-                        const iframe = e.target as HTMLIFrameElement;
-                        if (iframe.contentDocument && iframe.contentDocument.body.innerHTML === '') {
-                          setTimeout(() => {
-                            if (iframe.contentDocument && iframe.contentDocument.body.innerHTML === '') {
-                              handleIframeError();
-                            }
-                          }, 1000);
-                        }
-                      } catch (error) {
-                        // Cross-origin error, which is expected but means the ad loaded
-                        console.log('Ad iframe loaded successfully');
-                      }
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-4">
-                    <div className="text-lg font-bold text-gray-700 mb-2">Ad Blocked</div>
-                    <p className="text-sm text-gray-500 text-center mb-3">
-                      Please disable your ad blocker to continue
-                    </p>
-                    <button 
-                      onClick={() => {
-                        setAdError(false);
-                        if (iframeRef.current) {
-                          iframeRef.current.src = iframeRef.current.src;
-                        }
-                      }}
-                      className="px-3 py-1 bg-blue-500 text-white rounded text-sm"
-                    >
-                      Reload Ad
-                    </button>
-                  </div>
-                )}
+              {/* Ad Container */}
+              <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100">
+                <div id="container-cb29393bf98693815c2e6ac9b2e6d443" className="w-full h-full">
+                  {!adLoaded && (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 animate-pulse">{countdown}s</div>
