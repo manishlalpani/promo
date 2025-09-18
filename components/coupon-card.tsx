@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Script from 'next/script';
 
 interface Coupon {
   id: string;
@@ -27,9 +28,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   const [showModal, setShowModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [buttonLabel, setButtonLabel] = useState('Continue to Site');
-  const [adLoaded, setAdLoaded] = useState(false);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
-  const adInitialized = useRef(false);
 
   // Responsive button label
   useEffect(() => {
@@ -66,71 +65,6 @@ export default function CouponCard({ coupon }: CouponCardProps) {
     };
   }, [countdown, showCountdown]);
 
-  // Load Adsterra ad when countdown is shown
-  useEffect(() => {
-    if (showCountdown && !adInitialized.current) {
-      adInitialized.current = true;
-      setAdLoaded(false);
-
-      // Create configuration script
-      const configScript = document.createElement('script');
-      configScript.type = 'text/javascript';
-      configScript.innerHTML = `
-        atOptions = {
-          'key' : 'cb29393bf98693815c2e6ac9b2e6d443',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      `;
-      
-      // Create ad script
-      const adScript = document.createElement('script');
-      adScript.type = 'text/javascript';
-      adScript.src = 'https://www.highperformanceformat.com/cb29393bf98693815c2e6ac9b2e6d443/invoke.js';
-      adScript.async = true;
-      
-      adScript.onload = () => {
-        console.log('Adsterra ad loaded successfully');
-        setAdLoaded(true);
-      };
-      
-      adScript.onerror = () => {
-        console.log('Ad failed to load');
-        setAdLoaded(true);
-      };
-      
-      // Add scripts to document head
-      document.head.appendChild(configScript);
-      document.head.appendChild(adScript);
-      
-      // Set timeout to check if ad loaded
-      const timeoutId = setTimeout(() => {
-        setAdLoaded(true);
-      }, 2000);
-      
-      return () => {
-        clearTimeout(timeoutId);
-        // Clean up scripts
-        if (document.head.contains(configScript)) {
-          document.head.removeChild(configScript);
-        }
-        if (document.head.contains(adScript)) {
-          document.head.removeChild(adScript);
-        }
-      };
-    }
-  }, [showCountdown]);
-
-  // Reset states when countdown is closed
-  useEffect(() => {
-    if (!showCountdown) {
-      adInitialized.current = false;
-      setAdLoaded(false);
-    }
-  }, [showCountdown]);
-
   // Copy coupon code
   const handleCopy = async () => {
     try {
@@ -161,6 +95,8 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   };
 
   const colors = ['#FBBF24', '#10B981', '#3B82F6', '#EF4444', '#8B5CF6', '#F472B6'];
+
+  const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
 
   return (
     <>
@@ -216,13 +152,16 @@ export default function CouponCard({ coupon }: CouponCardProps) {
 
               {/* Ad Container */}
               <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100">
-                <div id="container-cb29393bf98693815c2e6ac9b2e6d443" className="w-full h-full">
-                  {!adLoaded && (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                    </div>
-                  )}
-                </div>
+                {isLocal ? (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                  </div>
+                ) : (
+                  <Script
+                    src="//pl27674623.revenuecpmgate.com/c1/e5/d7/c1e5d79b56cafd107735a0867ca7b855.js"
+                    strategy="afterInteractive"
+                  />
+                )}
               </div>
 
               <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 animate-pulse">{countdown}s</div>
@@ -232,9 +171,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                 onClick={() => {
                   setShowCountdown(false);
                   setCountdown(10);
-                  if (countdownRef.current) {
-                    clearTimeout(countdownRef.current);
-                  }
+                  if (countdownRef.current) clearTimeout(countdownRef.current);
                 }}
                 className="mt-4 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md text-sm"
               >
