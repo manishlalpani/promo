@@ -99,7 +99,7 @@ export default function FeatureItems() {
           verified: true,
           affiliateUrl: "https://oldnavy.com/specials"
         },
-      ].map((store, index) => {
+      ].map((store: { name: string; discount: string; code: string; verified: boolean; affiliateUrl: string }) => {
         // Function to handle code reveal and redirect
         const handleGetCode = () => {
           // You could add analytics tracking here

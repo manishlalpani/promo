@@ -5,8 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Script from "next/script";
-
+import Image from "next/image";
 interface Coupon {
   id: string;
   title: string;
@@ -106,9 +105,6 @@ export default function CouponCard({ coupon }: CouponCardProps) {
     "#F472B6",
   ];
 
-  const isLocal =
-    typeof window !== "undefined" && window.location.hostname === "localhost";
-
   return (
     <>
       {/* Coupon Card */}
@@ -172,9 +168,11 @@ export default function CouponCard({ coupon }: CouponCardProps) {
               {/* Ad Container  Direct link*/}
               <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100">
                 <Link href="/shop">
-                <img
+                <Image
                   src="/clickhere.png"
                   alt="Ad Placeholder"
+                  width={300}
+                  height={250}
                   className="w-full h-full object-cover"
                 />
                 </Link>

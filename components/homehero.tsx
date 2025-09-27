@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function HomeHero() {
   const [dark, setDark] = useState<boolean>(false);
@@ -9,8 +9,7 @@ export default function HomeHero() {
 
   useEffect(() => {
     setMounted(true);
-    const isDark = localStorage.getItem("theme") === "dark" || 
-                  (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDark = localStorage.getItem("theme") === "dark";
     setDark(isDark);
   }, []);
 

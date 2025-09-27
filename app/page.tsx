@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import HomeHero from "@/components/homehero";
 import Link from "next/link";
 import FeatureItems from "@/components/(Home Items)/feature-items/page";
 
@@ -58,7 +57,6 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-search-console-verification",
     yandex: "your-yandex-verification",
     yahoo: "your-yahoo-verification",
   },
@@ -262,7 +260,7 @@ export default function HomePage() {
                   icon: "💰",
                   keyword: "apply promo codes"
                 },
-              ].map((item) => (
+              ].map((item: { step: string; title: string; desc: string; icon: string; keyword: string }) => (
                 <div key={item.step} className="bg-white dark:bg-slate-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl sm:text-2xl mx-auto mb-4">
                     {item.icon}
@@ -494,7 +492,7 @@ export default function HomePage() {
             </div>
           `
         },
-      ].map((article, index) => (
+      ].map((article) => (
         <article 
           key={article.id}
           className="group bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-slate-700 hover:border-purple-200 dark:hover:border-purple-500 hover:transform hover:-translate-y-2"
@@ -598,8 +596,8 @@ export default function HomePage() {
                   question: "Do you offer cashback or rewards in addition to coupons?",
                   answer: "Yes! Many stores offer additional cashback through our partners. Look for the cashback indicator next to coupon codes for extra savings on top of your discount."
                 },
-              ].map((faq, index) => (
-                <details key={index} className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+              ].map((faq: { question: string; answer: string }) => (
+                <details key={faq.question} className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                   <summary className="cursor-pointer font-semibold text-gray-900 dark:text-white text-lg marker:text-blue-500">
                     {faq.question}
                   </summary>
@@ -629,7 +627,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        <HomeHero />
       </main>
     </>
   );
