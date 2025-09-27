@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://promoscoupon.com
+
+# Sitemaps
+Sitemap: https://promoscoupon.com/sitemap.xml

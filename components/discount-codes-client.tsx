@@ -42,17 +42,98 @@ const couponData: Coupon[] = [
   },
   {
     id: '2',
-    brand: 'Noon',
-    title: 'Electronics Discount',
-    description: 'Special offer on electronics and gadgets',
+    brand: 'Walmart',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
     code: 'NOONELECT15',
     discount: '15%',
-    expiryDate: 'September 15, 2023',
+    expiryDate: 'September 15, 2025',
     terms: 'Valid on electronics category. Maximum discount $100.',
-    logo: '/daraz.png',
+    logo: '/walmart.png',
     category: 'Electronics',
-    affiliateLink: '/discount-codes/noon'
+    affiliateLink: '/discount-codes/walmart'
   },
+ {
+    id: '3',
+    brand: 'Ali Express',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/aliexpress.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/aliexpress'
+  },
+ {
+    id: '4',
+    brand: 'eBay',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/ebay.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/ebay'
+  },
+ {
+    id: '5',
+    brand: 'Hostinger',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/hostinger.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/hostinger'
+  },
+   {
+    id: '6',
+    brand: 'Nike',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/nike.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/nike'
+  },
+ {
+    id: '7',
+    brand: 'Temu',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/temu.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/temu'
+  },
+   {
+    id: '8',
+    brand: 'Adidas',
+    title: 'Discount Coupon',
+    description: 'Special Offer Discount Code',
+    code: 'NOONELECT15',
+    discount: '15%',
+    expiryDate: 'September 15, 2025',
+    terms: 'Valid on electronics category. Maximum discount $100.',
+    logo: '/adidas.png',
+    category: 'Electronics',
+    affiliateLink: '/discount-codes/adidas'
+  },
+
+
+
   // Add more coupons...
 ];
 
@@ -138,11 +219,7 @@ export default function DiscountCodesClient({ searchQuery, selectedCategory }: D
         </div>
       )}
 
-      {filteredCoupons.length > 0 && (
-        <div className="text-center mt-8">
-          <Button variant="outline" className="rounded-full px-8">Load More Coupons</Button>
-        </div>
-      )}
+     
     </section>
   );
 }

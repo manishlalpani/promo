@@ -61,6 +61,7 @@ export default function Navbar() {
     { name: "Stores", href: "/discount-codes" },
     { name: "About ", href: "/about" },
     { name: "Contact", href: "/contact" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
   ];
 
   return (
@@ -73,7 +74,7 @@ export default function Navbar() {
           aria-label="Homepage"
           tabIndex={0}
         >
-          PromoCoupon.AE
+          PromosCoupon.Com
         </Link>
 
         {/* Desktop navigation */}
@@ -88,11 +89,7 @@ export default function Navbar() {
               {name}
             </Link>
           ))}
-          <Link href={"/subscription"}> 
-           <Button className="ml-4 whitespace-nowrap" tabIndex={0}>
-            Subscribe Email
-          </Button>
-          </Link>
+         
          
           <Button
             variant="outline"

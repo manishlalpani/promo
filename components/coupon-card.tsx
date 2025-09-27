@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import Script from 'next/script';
+import { useState, useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Script from "next/script";
 
 interface Coupon {
   id: string;
@@ -27,37 +27,40 @@ export default function CouponCard({ coupon }: CouponCardProps) {
   const [countdown, setCountdown] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [buttonLabel, setButtonLabel] = useState('Continue to Site');
+  const [buttonLabel, setButtonLabel] = useState("Continue to Site");
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
 
   // Responsive button label
   useEffect(() => {
     const updateButtonLabel = () => {
-      if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-        setButtonLabel('Continue to APP');
+      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+        setButtonLabel("Continue to APP");
       } else {
-        setButtonLabel('Continue to Site');
+        setButtonLabel("Continue to Site");
       }
     };
-    
+
     updateButtonLabel();
-    window.addEventListener('resize', updateButtonLabel);
-    
+    window.addEventListener("resize", updateButtonLabel);
+
     return () => {
-      window.removeEventListener('resize', updateButtonLabel);
+      window.removeEventListener("resize", updateButtonLabel);
     };
   }, []);
 
   // Countdown logic
   useEffect(() => {
     if (showCountdown && countdown > 0) {
-      countdownRef.current = setTimeout(() => setCountdown(countdown - 1), 1000);
+      countdownRef.current = setTimeout(
+        () => setCountdown(countdown - 1),
+        1000
+      );
     } else if (showCountdown && countdown === 0) {
       setShowCountdown(false);
       setShowModal(true);
       setCountdown(10);
     }
-    
+
     return () => {
       if (countdownRef.current) {
         clearTimeout(countdownRef.current);
@@ -71,18 +74,18 @@ export default function CouponCard({ coupon }: CouponCardProps) {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(coupon.code);
       } else {
-        const textArea = document.createElement('textarea');
+        const textArea = document.createElement("textarea");
         textArea.value = coupon.code;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        
+
         try {
-          document.execCommand('copy');
+          document.execCommand("copy");
         } catch (err) {
-          console.error('Fallback copy failed:', err);
+          console.error("Fallback copy failed:", err);
         } finally {
           document.body.removeChild(textArea);
         }
@@ -90,13 +93,21 @@ export default function CouponCard({ coupon }: CouponCardProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy coupon code:', err);
+      console.error("Failed to copy coupon code:", err);
     }
   };
 
-  const colors = ['#FBBF24', '#10B981', '#3B82F6', '#EF4444', '#8B5CF6', '#F472B6'];
+  const colors = [
+    "#FBBF24",
+    "#10B981",
+    "#3B82F6",
+    "#EF4444",
+    "#8B5CF6",
+    "#F472B6",
+  ];
 
-  const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+  const isLocal =
+    typeof window !== "undefined" && window.location.hostname === "localhost";
 
   return (
     <>
@@ -105,8 +116,12 @@ export default function CouponCard({ coupon }: CouponCardProps) {
         <CardContent className="p-6 flex flex-col flex-grow">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-xl font-bold text-black dark:text-white">{coupon.title}</h3>
-              <p className="text-black dark:text-white mt-1">{coupon.description}</p>
+              <h3 className="text-xl font-bold text-black dark:text-white">
+                {coupon.title}
+              </h3>
+              <p className="text-black dark:text-white mt-1">
+                {coupon.description}
+              </p>
             </div>
             <span className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-1 px-3 rounded-full text-sm shadow-md">
               {coupon.discount} OFF
@@ -119,7 +134,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
             onClick={() => setShowCountdown(true)}
           >
             <code className="text-lg font-mono font-bold text-yellow-700 relative z-10 blur-md animate-pulse">
-              {coupon.code.slice(-2).padStart(coupon.code.length, '*')}
+              {coupon.code.slice(-2).padStart(coupon.code.length, "*")}
             </code>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <span className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-sm animate-bounce">
@@ -128,7 +143,9 @@ export default function CouponCard({ coupon }: CouponCardProps) {
             </div>
           </div>
 
-          <div className="text-sm text-green-500 font-semibold mb-2">⏳ Expires: {coupon.expiryDate}</div>
+          <div className="text-sm text-green-500 font-semibold mb-2">
+            ⏳ Expires: {coupon.expiryDate}
+          </div>
           <div className="text-xs text-gray-600 dark:text-white mt-auto italic">
             <p>{coupon.terms}</p>
           </div>
@@ -145,29 +162,32 @@ export default function CouponCard({ coupon }: CouponCardProps) {
             exit={{ opacity: 0 }}
           >
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl flex flex-col items-center w-full max-w-md">
-              <h2 className="text-2xl font-bold mb-2 text-black dark:text-white">⏱ Hold on!</h2>
+              <h2 className="text-2xl font-bold mb-2 text-black dark:text-white">
+                ⏱ Hold on!
+              </h2>
               <p className="text-center text-gray-700 dark:text-gray-300 mb-4">
                 Your coupon is almost ready. Check out this deal!
               </p>
 
-              {/* Ad Container */}
+              {/* Ad Container  Direct link*/}
               <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100">
-                {isLocal ? (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                  </div>
-                ) : (
-                  <Script
-                    src="//pl27674623.revenuecpmgate.com/c1/e5/d7/c1e5d79b56cafd107735a0867ca7b855.js"
-                    strategy="afterInteractive"
-                  />
-                )}
+                <Link href="/shop">
+                <img
+                  src="/clickhere.png"
+                  alt="Ad Placeholder"
+                  className="w-full h-full object-cover"
+                />
+                </Link>
               </div>
 
-              <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 animate-pulse">{countdown}s</div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Fun countdown before your reward!</p>
-              
-              <button 
+              <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 animate-pulse">
+                {countdown}s
+              </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Fun countdown before your reward!
+              </p>
+
+              <button
                 onClick={() => {
                   setShowCountdown(false);
                   setCountdown(10);
@@ -193,22 +213,28 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                   key={i}
                   className="absolute w-2 h-2 rounded-full"
                   style={{ backgroundColor: colors[i % colors.length] }}
-                  initial={{ 
-                    y: -50, 
-                    x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0, 
-                    rotate: 0, 
-                    opacity: 1 
+                  initial={{
+                    y: -50,
+                    x:
+                      typeof window !== "undefined"
+                        ? Math.random() * window.innerWidth
+                        : 0,
+                    rotate: 0,
+                    opacity: 1,
                   }}
-                  animate={{ 
-                    y: typeof window !== 'undefined' ? window.innerHeight + 50 : 1000, 
-                    rotate: Math.random() * 720, 
-                    opacity: 0 
+                  animate={{
+                    y:
+                      typeof window !== "undefined"
+                        ? window.innerHeight + 50
+                        : 1000,
+                    rotate: Math.random() * 720,
+                    opacity: 0,
                   }}
                   transition={{
                     duration: 2 + Math.random(),
                     repeat: Infinity,
-                    repeatType: 'loop',
-                    ease: 'linear',
+                    repeatType: "loop",
+                    ease: "linear",
                     delay: Math.random() * 0.5,
                   }}
                 />
@@ -232,9 +258,13 @@ export default function CouponCard({ coupon }: CouponCardProps) {
                 <Button
                   size="sm"
                   onClick={handleCopy}
-                  className={`px-3 py-1 rounded-md ${copied ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
+                  className={`px-3 py-1 rounded-md ${
+                    copied
+                      ? "bg-green-500 hover:bg-green-600"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  } text-white`}
                 >
-                  {copied ? 'Copied!' : 'COPY'}
+                  {copied ? "Copied!" : "COPY"}
                 </Button>
               </div>
 
