@@ -2,6 +2,7 @@
 import { Metadata } from 'next';
 import CouponCard from '@/components/coupon-card';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Accordion,
   AccordionItem,
@@ -19,19 +20,19 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://savedaily.com/hostinger-coupons.png',
+        url: 'https://promoscoupon.com/hostinger.png',
         width: 1200,
         height: 630,
         alt: 'Hostinger Coupons and Promo Codes - Verified Working Offers 2025',
       },
     ],
-    url: 'https://savedaily.com/hostinger-coupons',
+    url: 'https://promoscoupon.com/discount-codes/hostinger',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hostinger Coupons & Promo Codes 2025 - Up to 85% Off Hosting',
     description: 'Shop smarter with verified Hostinger coupons and discount codes. Get limited-time offers and exclusive deals today.',
-    images: ['https://savedaily.com/hostinger-coupons.png'],
+    images: ['https://promoscoupon.com/hostinger.png'],
   },
 };
 
@@ -108,7 +109,17 @@ export default function HostingerPage() {
             Hostinger Coupons & Promo Codes 2025
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover verified Hostinger coupons, promo codes, and discount vouchers that actually work. 
+            Discover verified 
+             {" "}
+     <Link 
+    href="https://www.hostinger.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Hostinger
+  </Link>{" "}
+             coupons, promo codes, and discount vouchers that actually work. 
             Save up to 85% on web hosting, domains, VPS, and WordPress hosting with our updated offers.
           </p>
         </section>
@@ -128,7 +139,7 @@ export default function HostingerPage() {
         {/* Hero Image */}
         <div className="mt-8 mx-auto max-w-md text-center">
           <Image
-            src="/hostinger-coupons.png"
+            src="/hostinger.png"
             alt="Hostinger Coupons and Discount Offers 2025"
             width={600}
             height={315}

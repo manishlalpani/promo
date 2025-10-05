@@ -167,7 +167,11 @@ export default function CouponCard({ coupon }: CouponCardProps) {
 
               {/* Ad Container  Direct link*/}
               <div className="w-[300px] h-[250px] mb-4 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100">
-                <Link href="/shop">
+                <Link
+      href="https://www.revenuecpmgate.com/i5i9mpysgh?key=711ff6ff052665c716c62ecb6854587c"
+      target="_blank"
+      rel="nofollow sponsored noopener noreferrer"
+    >
                 <Image
                   src="/clickhere.png"
                   alt="Ad Placeholder"

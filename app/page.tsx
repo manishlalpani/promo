@@ -38,6 +38,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  
   twitter: {
     card: "summary_large_image",
     title: "Best Coupon Codes & Promo Codes 2025 - Save Up to 80% Off",
@@ -61,6 +62,7 @@ export const metadata: Metadata = {
     yahoo: "your-yahoo-verification",
   },
 };
+
 
 export default function HomePage() {
   // Structured Data for SEO
@@ -302,16 +304,37 @@ export default function HomePage() {
     </div>
 
     {/* Interactive Category Filter */}
-    <div className="flex flex-wrap justify-center gap-3 mb-12">
-      {['All Guides', 'Amazon', 'Walmart', 'Seasonal', 'Verification', 'Mobile', 'Black Friday'].map((category) => (
-        <button 
-          key={category}
-          className="px-4 py-2.5 text-sm font-semibold bg-white dark:bg-slate-700 rounded-full shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-slate-600 hover:border-purple-300 dark:hover:border-purple-500 hover:transform hover:-translate-y-0.5"
-        >
-          {category}
-        </button>
-      ))}
-    </div>
+   <div className="flex flex-wrap justify-center gap-3 mb-12">
+  {[
+    { name: 'All Guides' },
+    { name: 'Amazon', link: 'https://www.amazon.com/' },
+    { name: 'Walmart', link: 'https://www.wallmart.com/' },
+    { name: 'Seasonal' },
+    { name: 'Verification' },
+    { name: 'Mobile' },
+    { name: 'Black Friday' },
+  ].map((category) =>
+    category.link ? (
+      <a
+        key={category.name}
+        href={category.link}
+        target="_blank"
+        rel="noopener noreferrer external"
+        className="px-4 py-2.5 text-sm font-semibold bg-white dark:bg-slate-700 rounded-full shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-slate-600 hover:border-purple-300 dark:hover:border-purple-500 hover:transform hover:-translate-y-0.5"
+      >
+        {category.name}
+      </a>
+    ) : (
+      <button
+        key={category.name}
+        className="px-4 py-2.5 text-sm font-semibold bg-white dark:bg-slate-700 rounded-full shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-slate-600 hover:border-purple-300 dark:hover:border-purple-500 hover:transform hover:-translate-y-0.5"
+      >
+        {category.name}
+      </button>
+    )
+  )}
+</div>
+
 
     {/* Enhanced Articles Grid */}
     <div className="grid lg:grid-cols-2 gap-8 md:gap-10">

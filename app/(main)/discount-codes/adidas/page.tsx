@@ -1,7 +1,9 @@
 // app/page.tsx  
-import { Metadata } from 'next';
+import next, { Metadata } from 'next';
 import CouponCard from '@/components/coupon-card';
 import Image from 'next/image';
+import Link from "next/link";
+
 import {
   Accordion,
   AccordionItem,
@@ -19,19 +21,19 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://savedaily.com/adidas-coupons.png',
+        url: 'https://promoscoupon.com/adidas.png',
         width: 1200,
         height: 630,
         alt: 'Adidas Coupons and Promo Codes - Verified Working Offers 2025',
       },
     ],
-    url: 'https://savedaily.com/adidas-coupons',
+    url: 'https://promoscoupon.com/discount-codes/adidas',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Adidas Coupons & Promo Codes 2025 - Verified Working Discounts',
     description: 'Shop smarter with verified Adidas coupons and discount codes. Get limited-time offers and exclusive deals today.',
-    images: ['https://savedaily.com/adidas-coupons.png'],
+    images: ['https://promoscoupon.com/adidas.png'],
   },
 };
 
@@ -105,10 +107,22 @@ export default function AdidasPage() {
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="text-4xl font-bold text-black dark:text-white mb-4">
+      
+
             Adidas Coupons & Promo Codes 2025
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover verified Adidas coupons, promo codes, and discount vouchers that actually work. 
+            Discover verified 
+             {" "}
+     <Link 
+    href="https://www.adidas.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Adidas
+  </Link>{" "}
+            coupons, promo codes, and discount vouchers that actually work. 
             Save on the latest footwear, clothing, and sports gear with our updated offers.
           </p>
         </section>
@@ -128,7 +142,7 @@ export default function AdidasPage() {
         {/* Hero Image */}
         <div className="mt-8 mx-auto max-w-md text-center">
           <Image
-            src="/adidas-coupons.png"
+            src="/adidas.png"
             alt="Adidas Coupons and Discount Offers 2025"
             width={600}
             height={315}

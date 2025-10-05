@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "CouponDeals - Find the Best Discounts & Promo Codes",
@@ -34,7 +35,27 @@ export default function HomePage() {
   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
     Discover working discount codes and verified coupons for the world's most popular online stores. 
     Whether you're shopping at <strong>Amazon</strong>, hunting deals on <strong>AliExpress</strong>, 
-    or looking for sports gear from <strong>Nike and Adidas</strong>, our regularly updated coupon 
+    or looking for sports gear from {" "}
+     <Link 
+    href="https://www.nike.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Nike
+  </Link>{" "}
+
+     and 
+     {" "}
+     <Link 
+    href="https://www.adidas.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Adidas
+  </Link>{" "}
+     , our regularly updated coupon 
     codes help you save money on every purchase. All codes are tested and verified to ensure they 
     work when you need them.
   </p>
@@ -100,8 +121,12 @@ export default function HomePage() {
         <span className="w-3 h-3 bg-red-500 rounded-full mr-3"></span>
         AliExpress Coupons - Global Bargains Delivered
       </h2>
+
+      
       <p className="text-gray-700 dark:text-gray-300 mb-4">
-        <strong>AliExpress discount codes</strong> are perfect for shoppers looking for unbeatable 
+        
+         <strong>
+          AliExpress discount codes</strong> are perfect for shoppers looking for unbeatable 
         prices on everything from electronics to fashion. The platform's direct-from-manufacturer 
         model means you can often save 50-80% off retail prices. New users typically get 
         welcome coupons for even deeper discounts.

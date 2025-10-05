@@ -2,6 +2,7 @@
 import { Metadata } from 'next';
 import CouponCard from '@/components/coupon-card';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Accordion,
   AccordionItem,
@@ -19,19 +20,19 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://savedaily.com/temu-coupons.png',
+        url: 'https://promoscoupon.com/temu.png',
         width: 1200,
         height: 630,
         alt: 'Temu Coupons and Promo Codes - Verified Working Offers 2025',
       },
     ],
-    url: 'https://savedaily.com/temu-coupons',
+    url: 'https://promoscoupon.com/discount-codes/temu',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Temu Coupons & Promo Codes 2025 - Verified Working Discounts',
     description: 'Shop smarter with verified Temu coupons and discount codes. Get limited-time offers and exclusive deals today.',
-    images: ['https://savedaily.com/temu-coupons.png'],
+    images: ['https://promoscoupon.com/temu.png'],
   },
 };
 
@@ -108,7 +109,17 @@ export default function TemuPage() {
             Temu Coupons & Promo Codes 2025
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover verified Temu coupons, promo codes, and discount vouchers that actually work. 
+            Discover verified 
+             {" "}
+     <Link 
+    href="https://www.temu.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Temu
+  </Link>{" "}
+             coupons, promo codes, and discount vouchers that actually work. 
             Save up to 90% on electronics, fashion, home goods, and more with our updated offers.
           </p>
         </section>
@@ -128,7 +139,7 @@ export default function TemuPage() {
         {/* Hero Image */}
         <div className="mt-8 mx-auto max-w-md text-center">
           <Image
-            src="/temu-coupons.png"
+            src="/temu.png"
             alt="Temu Coupons and Discount Offers 2025"
             width={600}
             height={315}

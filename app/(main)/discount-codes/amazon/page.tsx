@@ -2,6 +2,7 @@
 import { Metadata } from 'next';
 import CouponCard from '@/components/coupon-card';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Accordion,
   AccordionItem,
@@ -19,19 +20,19 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://savedaily.com/amazon-promo-codes.png',
+        url: 'https://promoscoupon.com/amazon.png',
         width: 1200,
         height: 630,
         alt: 'Amazon Promo Codes and Discount Codes - Verified Working Offers',
       },
     ],
-    url: 'https://savedaily.com/amazon-promo-codes',
+    url: 'https://promoscoupon.com/discount-codes/amazon',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Amazon Promo Codes & Coupon Codes 2025 - Verified Working Discounts',
     description: 'Shop smarter with verified Amazon promo codes and discount codes. Get limited-time offers and exclusive deals today.',
-    images: ['https://savedaily.com/amazon-promo-codes.png'],
+    images: ['https://promoscoupon.com/amazon.png'],
   },
 };
 
@@ -108,7 +109,17 @@ export default function AmazonPage() {
             Amazon Promo Codes & Discount Codes 2025
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover verified Amazon promo codes, coupon codes, and discount vouchers that actually work. 
+            Discover verified 
+             {" "}
+     <Link 
+    href="https://www.amazon.com/" 
+    target="_blank" 
+    rel="noopener noreferrer external" 
+    className="text-blue-600 hover:underline"
+  >
+    Amazon
+  </Link>{" "}
+            promo codes, coupon codes, and discount vouchers that actually work. 
             Save money on electronics, fashion, home goods, and everyday essentials with our updated offers.
           </p>
         </section>

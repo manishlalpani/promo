@@ -26,7 +26,7 @@ export default function FeatureItems() {
           discount: "Up to 60% OFF", 
           code: "SAVE20", 
           verified: true,
-          affiliateUrl: "/app/discount-codes/amazon"
+          affiliateUrl: "/discount-codes/amazon"
         },
         { 
           name: "Walmart", 
